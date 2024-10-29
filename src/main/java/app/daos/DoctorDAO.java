@@ -98,31 +98,18 @@ public class DoctorDAO implements IDAO<Doctor>
             return doctor;
         }
     }
-    
-    public Doctor update(int id, DoctorDTO doctorDTO) {
-        System.out.println("DoctorDTO name: " + doctorDTO.getName()); // Debug log to verify name presence
-        try (EntityManager em = emf.createEntityManager()) {
+
+    @Override
+    public Doctor update(int id, DoctorDTO doctor)
+    {
+        try (EntityManager em = emf.createEntityManager())
+        {
             em.getTransaction().begin();
             Doctor updatedDoctor = em.find(Doctor.class, id);
-            updatedDoctor.updateToDoctor(doctorDTO);
+            updatedDoctor.updateToDoctor(doctor);
             em.merge(updatedDoctor);
             em.getTransaction().commit();
             return updatedDoctor;
         }
     }
-
-
-//    @Override
-//    public Doctor update(int id, DoctorDTO doctor)
-//    {
-//        try (EntityManager em = emf.createEntityManager())
-//        {
-//            em.getTransaction().begin();
-//            Doctor updatedDoctor = em.find(Doctor.class, id);
-//            updatedDoctor.updateToDoctor(doctor);
-//            em.merge(updatedDoctor);
-//            em.getTransaction().commit();
-//            return updatedDoctor;
-//        }
-//    }
 }

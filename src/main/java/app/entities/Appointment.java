@@ -26,7 +26,7 @@ public class Appointment
     private String comment;
 
     @ManyToOne
-    @JsonBackReference // Manages the back reference
+//    @JsonBackReference // Manages the back reference
     private Doctor doctor;
 
     public Appointment(String clientName, LocalDate date, LocalTime time, String comment, Doctor doctor)

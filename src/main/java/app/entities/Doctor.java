@@ -3,7 +3,6 @@ package app.entities;
 import app.dtos.DoctorDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,20 +32,19 @@ public class Doctor
     private String nameOfClinic;
     @Setter
     private Speciality speciality;
-
     @JsonIgnore
     private LocalDateTime createdAt;
     @JsonIgnore
     private LocalDateTime updatedAt;
 
-//    @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<Appointment> appointments = new ArrayList<>(); // Initialize appointments
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private List<Appointment> appointments = new ArrayList<>(); // Initialize appointments
 
-    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    @JsonManagedReference  // Allows appointments to be serialized
-    private List<Appointment> appointments = new ArrayList<>();
+//    @OneToMany(mappedBy = "doctor", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+//    @JsonManagedReference  // Allows appointments to be serialized
+//    private List<Appointment> appointments = new ArrayList<>();
 
-    public Doctor( String name, LocalDate dateOfBirth, int yearOfGraduation, String nameOfClinic, Speciality speciality, List<Appointment> appointments)
+    public Doctor(String name, LocalDate dateOfBirth, int yearOfGraduation, String nameOfClinic, Speciality speciality, List<Appointment> appointments)
     {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -56,7 +54,7 @@ public class Doctor
         this.appointments = appointments;
     }
 
-    public Doctor( String name, LocalDate dateOfBirth, int yearOfGraduation, String nameOfClinic, Speciality speciality)
+    public Doctor(String name, LocalDate dateOfBirth, int yearOfGraduation, String nameOfClinic, Speciality speciality)
     {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
@@ -64,7 +62,6 @@ public class Doctor
         this.nameOfClinic = nameOfClinic;
         this.speciality = speciality;
     }
-
 
     @PrePersist
     protected void onCreate()
@@ -89,7 +86,6 @@ public class Doctor
 
     public void updateToDoctor(DoctorDTO doctorDTO)
     {
-//        this.name = doctorDTO.getName();
         this.dateOfBirth = doctorDTO.getDateOfBirth();
         this.yearOfGraduation = doctorDTO.getYearOfGraduation();
         this.nameOfClinic = doctorDTO.getNameOfClinic();

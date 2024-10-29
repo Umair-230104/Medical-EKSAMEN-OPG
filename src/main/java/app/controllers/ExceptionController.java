@@ -6,21 +6,28 @@ import io.javalin.http.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ExceptionController {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class ExceptionController
+{
 
     private final Logger log = LoggerFactory.getLogger(ExceptionController.class);
 
-    public void apiExceptionHandler(ApiException e, Context ctx) {
+    public void apiExceptionHandler(ApiException e, Context ctx)
+    {
 
         log.error("{} {}", ctx.res().getStatus(), e.getMessage());
         ctx.status(e.getStatusCode());
-        ctx.json(new Message(e.getStatusCode(), e.getMessage()));
+        ctx.json(new Message(e.getStatusCode(), e.getMessage(), e.getTimestamp()));
 
     }
 
-    public void exceptionHandler(Exception e, Context ctx) {
+    public void exceptionHandler(Exception e, Context ctx)
+    {
         log.error("{}: {}", ctx.res().getStatus(), e.getMessage());
         ctx.status(500);
-        ctx.json(new Message(500, e.getMessage()));
+        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+        ctx.json(new Message(500, e.getMessage(), timestamp));
     }
 }

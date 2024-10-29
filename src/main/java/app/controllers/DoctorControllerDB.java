@@ -5,6 +5,7 @@ import app.dtos.DoctorDTO;
 import app.entities.Doctor;
 import app.entities.Message;
 import app.entities.Speciality;
+import app.exceptions.ApiException;
 import io.javalin.http.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +37,7 @@ public class DoctorControllerDB
         {
             log.error("500 - {}", e.getMessage(), e);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            ctx.status(500).json(new Message(500, e.getMessage() + " - Timestamp: " + timestamp));
+            ctx.status(500).json(new Message(500, e.getMessage(),timestamp));
         }
     }
 
@@ -48,11 +49,15 @@ public class DoctorControllerDB
             Doctor doctor = doctorDAO.read(id);
             ctx.res().setStatus(200);
             ctx.json(doctor, DoctorDTO.class);
+
+        } catch (ApiException e)
+        {
+            ctx.status(500).json(new Message(500, e.getMessage(), e.getTimestamp()));
         } catch (Exception e)
         {
             log.error("500 - {}", e.getMessage(), e);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            ctx.status(500).json(new Message(500, e.getMessage() + " - Timestamp: " + timestamp));
+            ctx.status(500).json(new Message(500, e.getMessage(), timestamp));
         }
     }
 
@@ -68,7 +73,7 @@ public class DoctorControllerDB
         {
             log.error("500 - {}", e.getMessage(), e);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            ctx.status(500).json(new Message(500, e.getMessage() + " - Timestamp: " + timestamp));
+            ctx.status(500).json(new Message(500, e.getMessage(), timestamp));
         }
     }
 
@@ -86,7 +91,7 @@ public class DoctorControllerDB
         {
             log.error("500 - {}", e.getMessage(), e);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            ctx.status(500).json(new Message(500, e.getMessage() + " - Timestamp: " + timestamp));
+            ctx.status(500).json(new Message(500, e.getMessage(), timestamp));
         }
     }
 
@@ -103,7 +108,7 @@ public class DoctorControllerDB
         {
             log.error("500 - {}", e.getMessage(), e);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            ctx.status(500).json(new Message(500, e.getMessage() + " - Timestamp: " + timestamp));
+            ctx.status(500).json(new Message(500, e.getMessage(), timestamp));
         }
     }
 
@@ -121,7 +126,7 @@ public class DoctorControllerDB
         {
             log.error("500 - {}", e.getMessage(), e);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            ctx.status(500).json(new Message(500, e.getMessage() + " - Timestamp: " + timestamp));
+            ctx.status(500).json(new Message(500, e.getMessage(), timestamp));
         }
     }
 
