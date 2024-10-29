@@ -1,5 +1,7 @@
 package app.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,16 +19,18 @@ public class Appointment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String clientName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private LocalTime time;
     private String comment;
 
     @ManyToOne
+    @JsonBackReference // Manages the back reference
     private Doctor doctor;
 
-    public Appointment(int id, String clientName, LocalDate date, LocalTime time, String comment, Doctor doctor)
+    public Appointment(String clientName, LocalDate date, LocalTime time, String comment, Doctor doctor)
     {
-        this.id = id;
         this.clientName = clientName;
         this.date = date;
         this.time = time;

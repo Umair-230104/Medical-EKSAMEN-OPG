@@ -17,7 +17,7 @@ Content-Type: application/json
 {
   "id": 6,
   "name": "CREATED DOCTOR",
-  "birthDate": "1978-09-12",
+  "dateOfBirth": "1978-09-12",
   "yearOfGraduation": 2003,
   "nameOfClinic": "Eastside Health Services",
   "speciality": "SURGERY"
@@ -30,7 +30,7 @@ Content-Type: application/json
 {
   "id": 6,
   "name": "UPDATED CREATED DOCTOR",
-  "birthDate": "1978-09-12",
+  "dateOfBirth": "1978-09-12",
   "yearOfGraduation": 2003,
   "nameOfClinic": "Eastside Health Services",
   "speciality": "SURGERY"

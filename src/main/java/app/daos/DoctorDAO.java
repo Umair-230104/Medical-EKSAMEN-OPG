@@ -1,5 +1,7 @@
 package app.daos;
 
+import app.dtos.DoctorDTO;
+import app.entities.Appointment;
 import app.entities.Doctor;
 import app.entities.Speciality;
 import jakarta.persistence.EntityManager;
@@ -58,21 +60,69 @@ public class DoctorDAO implements IDAO<Doctor>
         }
     }
 
-    @Override
-    public Doctor createDoctor(Doctor doctor)
-    {
-        try (EntityManager em = emf.createEntityManager())
-        {
+//    @Override
+//    public Doctor createDoctor(DoctorDTO doctorDTO)
+//    {
+//        Doctor doctor = new Doctor(doctorDTO);
+//
+//        try (EntityManager em = emf.createEntityManager())
+//        {
+//            em.getTransaction().begin();
+//            em.persist(doctor);
+//            em.getTransaction().commit();
+//            return doctor;
+//        }
+//    }
+
+    public Doctor createDoctor(DoctorDTO doctorDTO) {
+        Doctor doctor = new Doctor(doctorDTO);
+
+        // Convert each AppointmentDTO to an Appointment and add to Doctor
+        if (doctorDTO.getAppointments() != null) {
+            doctorDTO.getAppointments().forEach(appointmentDTO -> {
+                Appointment appointment = new Appointment(
+                        appointmentDTO.getClientName(),
+                        appointmentDTO.getDate(),
+                        appointmentDTO.getTime(),
+                        appointmentDTO.getComment(),
+                        doctor
+                );
+                doctor.getAppointments().add(appointment);
+            });
+        }
+
+        try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.persist(doctor);
             em.getTransaction().commit();
             return doctor;
         }
     }
-
-    @Override
-    public Doctor update(int id, Doctor doctor)
-    {
-        return null;
+    
+    public Doctor update(int id, DoctorDTO doctorDTO) {
+        System.out.println("DoctorDTO name: " + doctorDTO.getName()); // Debug log to verify name presence
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            Doctor updatedDoctor = em.find(Doctor.class, id);
+            updatedDoctor.updateToDoctor(doctorDTO);
+            em.merge(updatedDoctor);
+            em.getTransaction().commit();
+            return updatedDoctor;
+        }
     }
+
+
+//    @Override
+//    public Doctor update(int id, DoctorDTO doctor)
+//    {
+//        try (EntityManager em = emf.createEntityManager())
+//        {
+//            em.getTransaction().begin();
+//            Doctor updatedDoctor = em.find(Doctor.class, id);
+//            updatedDoctor.updateToDoctor(doctor);
+//            em.merge(updatedDoctor);
+//            em.getTransaction().commit();
+//            return updatedDoctor;
+//        }
+//    }
 }

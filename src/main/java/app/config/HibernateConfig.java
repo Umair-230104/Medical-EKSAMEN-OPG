@@ -1,7 +1,7 @@
 package app.config;
 
-import app.security.entities.User;
-import app.security.entities.Role;
+import app.entities.Appointment;
+import app.entities.Doctor;
 import app.utils.ApiProps;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.NoArgsConstructor;
@@ -14,47 +14,57 @@ import java.io.IOException;
 import java.util.Properties;
 
 @NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
-public class HibernateConfig {
+public class HibernateConfig
+{
 
     // ========================= VARIABLES ==============================
     private static boolean IS_TEST = false;
     private static EntityManagerFactory entityManagerFactory;
 
     // ========================= PUBLIC METHODS =========================
-    public static void setTest(boolean isTest) {
+    public static void setTest(boolean isTest)
+    {
         IS_TEST = isTest;
     }
 
-    public static EntityManagerFactory getEntityManagerFactory() {
+    public static EntityManagerFactory getEntityManagerFactory()
+    {
         if (IS_TEST) return getEntityManagerFactoryConfigTest();
         return getEntityManagerFactoryConfigDevelopment();
     }
 
     // ========================= PRIVATE METHODS =========================
-    private static EntityManagerFactory getEntityManagerFactoryConfigDevelopment() {
+    private static EntityManagerFactory getEntityManagerFactoryConfigDevelopment()
+    {
         if (entityManagerFactory == null) entityManagerFactory = setupHibernateConfigurationForDevelopment();
         return entityManagerFactory;
     }
 
-    public static EntityManagerFactory getEntityManagerFactoryConfigTest() {
+    public static EntityManagerFactory getEntityManagerFactoryConfigTest()
+    {
         if (entityManagerFactory == null) entityManagerFactory = setupHibernateConfigurationForTesting();
         return entityManagerFactory;
     }
 
-    private static EntityManagerFactory setupHibernateConfigurationForDevelopment() {
-        try {
+    private static EntityManagerFactory setupHibernateConfigurationForDevelopment()
+    {
+        try
+        {
             Configuration configuration = new Configuration();
             Properties props = new Properties();
             hibernateDevelopmentConfiguration(props);
             hibernateBasicConfiguration(props);
             return getEntityManagerFactory(configuration, props);
-        } catch (Throwable ex) {
+        } catch (Throwable ex)
+        {
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    private static EntityManagerFactory setupHibernateConfigurationForTesting() {
-        try {
+    private static EntityManagerFactory setupHibernateConfigurationForTesting()
+    {
+        try
+        {
             Configuration configuration = new Configuration();
             Properties props = new Properties();
             props.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
@@ -66,19 +76,22 @@ public class HibernateConfig {
             props.put("hibernate.show_sql", "true");
             props.put("hibernate.hbm2ddl.auto", "create-drop");
             return getEntityManagerFactory(configuration, props);
-        } catch (Throwable ex) {
+        } catch (Throwable ex)
+        {
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    private static void hibernateDevelopmentConfiguration(Properties props) throws IOException {
+    private static void hibernateDevelopmentConfiguration(Properties props) throws IOException
+    {
         props.put("hibernate.connection.url", ApiProps.DB_URL);
         props.put("hibernate.connection.username", ApiProps.DB_USER);
         props.put("hibernate.connection.password", ApiProps.DB_PASS);
     }
 
-    private static void hibernateBasicConfiguration(Properties props) {
+    private static void hibernateBasicConfiguration(Properties props)
+    {
         props.put("hibernate.show_sql", "false"); // show sql in console
         props.put("hibernate.format_sql", "false"); // format sql in console
         props.put("hibernate.use_sql_comments", "false"); // show sql comments in console
@@ -89,7 +102,8 @@ public class HibernateConfig {
         props.put("hibernate.hbm2ddl.auto", "update"); // hibernate creates tables based on entities
     }
 
-    private static EntityManagerFactory getEntityManagerFactory(Configuration configuration, Properties props) {
+    private static EntityManagerFactory getEntityManagerFactory(Configuration configuration, Properties props)
+    {
         configuration.setProperties(props);
         getAnnotationConfiguration(configuration);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
@@ -97,9 +111,10 @@ public class HibernateConfig {
         return sf.unwrap(EntityManagerFactory.class);
     }
 
-    private static void getAnnotationConfiguration(Configuration configuration) {
-
-
+    private static void getAnnotationConfiguration(Configuration configuration)
+    {
+        configuration.addAnnotatedClass(Doctor.class);
+        configuration.addAnnotatedClass(Appointment.class);
     }
 
 }

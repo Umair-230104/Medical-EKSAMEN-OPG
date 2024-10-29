@@ -1,5 +1,6 @@
 package app.dtos;
 
+import app.entities.Appointment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ public class AppointmentDTO
     private LocalTime time;
     private String comment;
 
-    public AppointmentDTO(int id, String clientName, LocalDate date, LocalTime time, String comment)
+    public AppointmentDTO(String clientName, LocalDate date, LocalTime time, String comment)
     {
         this.id = id;
         this.clientName = clientName;
@@ -29,4 +30,14 @@ public class AppointmentDTO
         this.time = time;
         this.comment = comment;
     }
+
+    public AppointmentDTO(Appointment appointment)
+    {
+        this.id = appointment.getId();
+        this.clientName = appointment.getClientName();
+        this.date = appointment.getDate();
+        this.time = appointment.getTime();
+        this.comment = appointment.getComment();
+    }
+
 }

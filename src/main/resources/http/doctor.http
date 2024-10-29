@@ -1,0 +1,62 @@
+### GetALL
+GET {{URL}}
+
+### GetById
+GET {{URL}}/1
+
+### GetBySpeciality
+GET {{URL}}/speciality/SURGERY
+
+### GetByBirthDateRange
+GET {{URL}}/birthdate-range/1980-01-01/1990-01-01
+
+### Create
+POST {{URL}}
+Content-Type: application/json
+
+{
+  "name": "3 CREATED DOCTOR",
+  "dateOfBirth": "1978-09-12",
+  "yearOfGraduation": 2003,
+  "nameOfClinic": "Eastside Health Services",
+  "speciality": "SURGERY"
+}
+
+### Update
+PUT {{URL}}/1
+Content-Type: application/json
+
+{
+  "dateOfBirth": "1980-09-12",
+  "yearOfGraduation": 2003,
+  "nameOfClinic": "UPDATED Eastside Health Services",
+  "speciality": "SURGERY"
+}
+
+### Create Doctor with Appointments
+POST {{URL}}
+Content-Type: application/json
+
+{
+  "name": "4 CREATED DOCTOR",
+  "dateOfBirth": "1978-09-12",
+  "yearOfGraduation": 2003,
+  "nameOfClinic": "Eastside Health Services",
+  "speciality": "SURGERY",
+  "appointments": [
+    {
+      "date": "2024-11-01",
+      "time": "10:30:00",
+      "clientName": "John Doe",
+      "comment": "First appointment"
+    },
+    {
+      "date": "2024-11-05",
+      "time": "15:00:00",
+      "clientName": "Jane Doe",
+      "comment": "Follow-up"
+    }
+  ]
+}
+
+

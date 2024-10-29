@@ -37,7 +37,7 @@ public class DoctorMockDAO implements IDAO<DoctorDTO>
     @Override
     public List<DoctorDTO> doctorByBirthdateRange(LocalDate from, LocalDate to)
     {
-        return doctorList.stream().filter(doctor -> !doctor.getBirthDate().isBefore(from) && !doctor.getBirthDate().isAfter(to)).collect(Collectors.toList());
+        return doctorList.stream().filter(doctor -> !doctor.getDateOfBirth().isBefore(from) && !doctor.getDateOfBirth().isAfter(to)).collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DoctorMockDAO implements IDAO<DoctorDTO>
 
         // Update the fields of the existing doctor with new data from the passed doctor object
         existingDoctor.setName(doctor.getName());
-        existingDoctor.setBirthDate(doctor.getBirthDate());
+        existingDoctor.setDateOfBirth(doctor.getDateOfBirth());
         existingDoctor.setYearOfGraduation(doctor.getYearOfGraduation());
         existingDoctor.setNameOfClinic(doctor.getNameOfClinic());
         existingDoctor.setSpeciality(doctor.getSpeciality());
