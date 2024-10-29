@@ -33,11 +33,14 @@ public class DoctorControllerDB
             List<DoctorDTO> doctorDTOList = DoctorDTO.toDoctorDTOList(doctors);
             ctx.res().setStatus(200);
             ctx.json(doctorDTOList, DoctorDTO.class);
+        } catch (ApiException e)
+        {
+            ctx.status(500).json(new Message(500, e.getMessage(), e.getTimestamp()));
         } catch (Exception e)
         {
             log.error("500 - {}", e.getMessage(), e);
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
-            ctx.status(500).json(new Message(500, e.getMessage(),timestamp));
+            ctx.status(500).json(new Message(500, e.getMessage(), timestamp));
         }
     }
 
@@ -69,6 +72,9 @@ public class DoctorControllerDB
             List<Doctor> doctors = doctorDAO.doctorBySpeciality(Speciality.valueOf(speciality));
             ctx.res().setStatus(200);
             ctx.json(doctors, DoctorDTO.class);
+        } catch (ApiException e)
+        {
+            ctx.status(500).json(new Message(500, e.getMessage(), e.getTimestamp()));
         } catch (Exception e)
         {
             log.error("500 - {}", e.getMessage(), e);
@@ -87,6 +93,9 @@ public class DoctorControllerDB
             List<Doctor> doctors = doctorDAO.doctorByBirthdateRange(from, to);
             ctx.res().setStatus(200);
             ctx.json(doctors, DoctorDTO.class);
+        } catch (ApiException e)
+        {
+            ctx.status(500).json(new Message(500, e.getMessage(), e.getTimestamp()));
         } catch (Exception e)
         {
             log.error("500 - {}", e.getMessage(), e);
@@ -104,6 +113,9 @@ public class DoctorControllerDB
 
             ctx.res().setStatus(201);
             ctx.json(newDoctor, DoctorDTO.class);
+        } catch (ApiException e)
+        {
+            ctx.status(500).json(new Message(500, e.getMessage(), e.getTimestamp()));
         } catch (Exception e)
         {
             log.error("500 - {}", e.getMessage(), e);
@@ -122,6 +134,9 @@ public class DoctorControllerDB
 
             ctx.res().setStatus(200);
             ctx.json(updatedDoctor, DoctorDTO.class);
+        } catch (ApiException e)
+        {
+            ctx.status(500).json(new Message(500, e.getMessage(), e.getTimestamp()));
         } catch (Exception e)
         {
             log.error("500 - {}", e.getMessage(), e);
