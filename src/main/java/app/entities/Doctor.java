@@ -30,6 +30,7 @@ public class Doctor
     private int yearOfGraduation;
     @Setter
     private String nameOfClinic;
+    @Enumerated(EnumType.STRING)
     @Setter
     private Speciality speciality;
     @JsonIgnore
