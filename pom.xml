@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion> <!-- Maven Project Model version -->
+
+    <groupId>app</groupId> <!-- Group ID of the project -->
+    <artifactId>Medical</artifactId> <!-- Artifact ID of the project -->
+    <version>1.0-SNAPSHOT</version> <!-- Version of the project -->
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source> <!-- Java source version -->
+        <maven.compiler.target>17</maven.compiler.target> <!-- Java target version -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- Source encoding -->
+
+        <!-- Versions from different files -->
+        <javalin.version>6.3.0</javalin.version> <!-- Version for Javalin web framework -->
+        <jackson.version>2.17.2</jackson.version> <!-- Version for Jackson (JSON processing) -->
+        <lombok.version>1.18.34</lombok.version> <!-- Version for Lombok (code generation) -->
+        <logback.version>1.5.8</logback.version> <!-- Version for Logback (logging) -->
+        <slf4j.version>2.0.16</slf4j.version> <!-- Version for SLF4J (logging framework API) -->
+        <hibernate-version>6.5.2.Final</hibernate-version> <!-- Version for Hibernate (ORM framework) -->
+        <postgresql.version>42.7.3</postgresql.version> <!-- Version for PostgreSQL JDBC driver -->
+        <jbcrypt.version>0.4</jbcrypt.version> <!-- Version for jBCrypt (password hashing) -->
+        <token.security.version>1.0.1</token.security.version> <!-- Version for Token Security library -->
+        <restassured.version>5.5.0</restassured.version> <!-- Version for Rest Assured (testing API) -->
+        <testcontainers.version>1.18.0</testcontainers.version> <!-- Version for TestContainers (testing with Docker) -->
+        <junit.version>5.9.1</junit.version> <!-- Version for JUnit (testing framework) -->
+        <hamcrest.version>3.0</hamcrest.version> <!-- Version for Hamcrest (matching framework for tests) -->
+        <hikari.version>5.1.0</hikari.version> <!-- Version for HikariCP (connection pooling) -->
+        <javalin.port>7070</javalin.port> <!-- Port for Javalin server -->
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id> <!-- Repository for Jitpack dependencies -->
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+
+        <!-- Token Security -->
+        <dependency>
+            <groupId>com.github.Hartmannsolution</groupId>
+            <artifactId>TokenSecurity</artifactId>
+            <version>${token.security.version}</version> <!-- Token Security dependency -->
+        </dependency>
+
+        <!-- jBCrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>${jbcrypt.version}</version> <!-- jBCrypt dependency for password hashing -->
+        </dependency>
+
+        <!-- Database Dependencies -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version> <!-- PostgreSQL JDBC driver -->
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-version}</version> <!-- Hibernate ORM dependency -->
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version> <!-- Jakarta Persistence API dependency -->
+        </dependency>
+
+        <!-- HikariCP for Connection Pooling -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikari.version}</version> <!-- HikariCP for connection pooling -->
+        </dependency>
+
+        <!-- Web Framework -->
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>${javalin.version}</version> <!-- Javalin web framework dependency -->
+        </dependency>
+
+        <!-- Utilities -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version> <!-- Jackson databind for JSON processing -->
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version> <!-- Jackson for Java 8 time API serialization -->
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version> <!-- Lombok for code generation -->
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version> <!-- Logback Classic for logging -->
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version> <!-- SLF4J API for logging -->
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version> <!-- JUnit API for unit testing -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version> <!-- JUnit engine for running tests -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>${hamcrest.version}</version> <!-- Hamcrest for matching assertions in tests -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${testcontainers.version}</version> <!-- TestContainers for integration testing with Docker -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${testcontainers.version}</version> <!-- TestContainers PostgreSQL module -->
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version> <!-- Rest Assured for testing REST APIs -->
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>app</finalName> <!-- Final name for the built artifact (JAR) -->
+        <plugins>
+            <!-- Maven Shade Plugin for creating a fat JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version> <!-- Shade plugin to package all dependencies into a single JAR -->
+                <configuration>
+                    <outputFile>${project.build.directory}/app.jar</outputFile> <!-- Output JAR file path -->
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>dat.Main</mainClass> <!-- Main class for the application -->
+                        </transformer>
+                    </transformers>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact> <!-- Filters to exclude unnecessary files from the final JAR -->
+                            <excludes>
+                                <exclude>module-info.class</exclude>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase> <!-- Execution during the package phase -->
+                        <goals>
+                            <goal>shade</goal> <!-- Goal to create a shaded JAR -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Surefire Plugin for running tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version> <!-- Surefire plugin for running unit tests -->
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

@@ -1,0 +1,8 @@
+13:43:44.670 [JettyServerThreadPool-26] ERROR app.controllers.ExceptionController - 403: Cannot invoke "dk.bugelhartmann.UserDTO.getRoles()" because "user" is null
+13:47:02.383 [JettyServerThreadPool-23] ERROR app.controllers.ExceptionController - 200: Could not create token
+13:48:13.874 [JettyServerThreadPool-26] ERROR app.controllers.ExceptionController - 403: Cannot invoke "dk.bugelhartmann.UserDTO.getRoles()" because "user" is null
+13:55:29.648 [JettyServerThreadPool-23] ERROR app.controllers.ExceptionController - 403: Cannot invoke "dk.bugelhartmann.UserDTO.getRoles()" because "user" is null
+13:55:46.659 [JettyServerThreadPool-24] ERROR app.controllers.ExceptionController - 403: Cannot invoke "dk.bugelhartmann.UserDTO.getRoles()" because "user" is null
+13:58:51.314 [JettyServerThreadPool-28] ERROR app.controllers.HotelController - 500 attempt to create delete event with null entity 
+13:58:51.316 [JettyServerThreadPool-28] ERROR app.controllers.ExceptionController - 200 attempt to create delete event with null entity
+14:16:16.799 [JettyServerThreadPool-28] WARN  app.daos.CountryDAO - Capitals list is empty or null.

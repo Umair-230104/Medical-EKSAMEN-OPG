@@ -1,0 +1,37 @@
+### GetALL
+GET {{URL}}
+
+### GetById
+GET {{URL}}/1
+
+### GetBySpeciality
+GET {{URL}}/speciality/SURGERY
+
+### GetByBirthDateRange
+GET {{URL}}/birthdate-range/1980-01-01/1990-01-01
+
+### Create
+POST {{URL}}
+Content-Type: application/json
+
+{
+  "id": 6,
+  "name": "CREATED DOCTOR",
+  "birthDate": "1978-09-12",
+  "yearOfGraduation": 2003,
+  "nameOfClinic": "Eastside Health Services",
+  "speciality": "SURGERY"
+}
+
+### Update
+PUT {{URL}}/7
+Content-Type: application/json
+
+{
+  "id": 6,
+  "name": "UPDATED CREATED DOCTOR",
+  "birthDate": "1978-09-12",
+  "yearOfGraduation": 2003,
+  "nameOfClinic": "Eastside Health Services",
+  "speciality": "SURGERY"
+}
