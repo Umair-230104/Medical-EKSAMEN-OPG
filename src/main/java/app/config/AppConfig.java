@@ -3,8 +3,7 @@ package app.config;
 import app.controllers.ExceptionController;
 import app.exceptions.ApiException;
 import app.routes.Routes;
-import app.security.controllers.AccessController;
-import app.security.routes.SecurityRoutes;
+
 import app.utils.ApiProps;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
@@ -15,7 +14,7 @@ public class AppConfig {
 
     private static final Routes routes = new Routes();
     private static final ExceptionController exceptionController = new ExceptionController();
-    private static final AccessController accessController = new AccessController();
+//    private static final AccessController accessController = new AccessController();
 
     private static void configuration(JavalinConfig config) {
 
@@ -23,8 +22,6 @@ public class AppConfig {
         config.bundledPlugins.enableRouteOverview("/routes");
         config.bundledPlugins.enableDevLogging();
         config.router.apiBuilder(routes.getApiRoutes());
-//        config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
-//        config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());
     }
 
     private static void exceptionContext(Javalin app) {
@@ -36,7 +33,6 @@ public class AppConfig {
     public static Javalin startServer() {
         var app = io.javalin.Javalin.create(AppConfig::configuration);
         exceptionContext(app);
-        app.beforeMatched(accessController::accessHandler);
         app.error(404, ctx -> ctx.json("Resource not found"));
         app.start(ApiProps.PORT);
         return app;

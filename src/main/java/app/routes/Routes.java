@@ -6,7 +6,7 @@ import static io.javalin.apibuilder.ApiBuilder.path;
 
 public class Routes {
 
-    private DoctorMockUpRoutes doctorMockUpRoutes = new DoctorMockUpRoutes();
+//    private DoctorMockUpRoutes doctorMockUpRoutes = new DoctorMockUpRoutes();
     private DoctorRoutes doctorRoutes = new DoctorRoutes();
 
     public EndpointGroup getApiRoutes() {

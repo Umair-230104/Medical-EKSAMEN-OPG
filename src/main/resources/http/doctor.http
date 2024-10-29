@@ -2,7 +2,7 @@
 GET {{URL}}
 
 ### GetById
-GET {{URL}}/1
+GET {{URL}}/165
 
 ### GetBySpeciality
 GET {{URL}}/speciality/SURGERY

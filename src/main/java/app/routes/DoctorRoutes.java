@@ -2,7 +2,7 @@ package app.routes;
 
 import app.config.HibernateConfig;
 import app.controllers.DoctorControllerDB;
-import app.controllers.MockUp.DoctorMockController;
+//import app.controllers.MockUp.DoctorMockController;
 import app.daos.DoctorDAO;
 import io.javalin.apibuilder.EndpointGroup;
 import jakarta.persistence.EntityManagerFactory;
