@@ -41,7 +41,7 @@ public class DoctorMockDAO implements IDAO<DoctorDTO>
     }
 
     @Override
-    public DoctorDTO createDoctor(DoctorDTO doctor)
+    public DoctorDTO createDoctorWithAppointments(DoctorDTO doctor)
     {
         doctorList.add(doctor);
         return doctor;

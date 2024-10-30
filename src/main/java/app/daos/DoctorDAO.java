@@ -60,21 +60,20 @@ public class DoctorDAO implements IDAO<Doctor>
         }
     }
 
-//    @Override
-//    public Doctor createDoctor(DoctorDTO doctorDTO)
-//    {
-//        Doctor doctor = new Doctor(doctorDTO);
-//
-//        try (EntityManager em = emf.createEntityManager())
-//        {
-//            em.getTransaction().begin();
-//            em.persist(doctor);
-//            em.getTransaction().commit();
-//            return doctor;
-//        }
-//    }
+    public Doctor createDoctor(DoctorDTO doctorDTO)
+    {
+        Doctor doctor = new Doctor(doctorDTO);
 
-    public Doctor createDoctor(DoctorDTO doctorDTO) {
+        try (EntityManager em = emf.createEntityManager())
+        {
+            em.getTransaction().begin();
+            em.persist(doctor);
+            em.getTransaction().commit();
+            return doctor;
+        }
+    }
+
+    public Doctor createDoctorWithAppointments(DoctorDTO doctorDTO) {
         Doctor doctor = new Doctor(doctorDTO);
 
         // Convert each AppointmentDTO to an Appointment and add to Doctor
@@ -100,16 +99,17 @@ public class DoctorDAO implements IDAO<Doctor>
     }
 
     @Override
-    public Doctor update(int id, DoctorDTO doctor)
-    {
-        try (EntityManager em = emf.createEntityManager())
-        {
+    public Doctor update(int id, DoctorDTO doctorDTO) {
+        try (EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
             Doctor updatedDoctor = em.find(Doctor.class, id);
-            updatedDoctor.updateToDoctor(doctor);
-            em.merge(updatedDoctor);
+            if (updatedDoctor != null) {
+                updatedDoctor.updateToDoctor(doctorDTO);  // Ensure the method handles non-null values appropriately
+                em.merge(updatedDoctor);
+            }
             em.getTransaction().commit();
-            return updatedDoctor;
+            return updatedDoctor;  // May return null if not found
         }
     }
+
 }

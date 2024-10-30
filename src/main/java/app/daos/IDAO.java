@@ -17,7 +17,7 @@ public interface IDAO<T>
 
     List<T> doctorByBirthdateRange(LocalDate from, LocalDate to);
 
-    T createDoctor(DoctorDTO doctorDTO);
+    T createDoctorWithAppointments(DoctorDTO doctorDTO);
 
     T update(int id, DoctorDTO doctorDTO);
 

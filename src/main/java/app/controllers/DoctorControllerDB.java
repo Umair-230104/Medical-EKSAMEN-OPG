@@ -109,7 +109,7 @@ public class DoctorControllerDB
         try
         {
             DoctorDTO doctorDTO = ctx.bodyAsClass(DoctorDTO.class);
-            Doctor newDoctor = doctorDAO.createDoctor(doctorDTO);
+            Doctor newDoctor = doctorDAO.createDoctorWithAppointments(doctorDTO);
 
             ctx.res().setStatus(201);
             ctx.json(newDoctor, DoctorDTO.class);

@@ -7,14 +7,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import app.daos.MockUp.DoctorMockDAO;
-import app.dtos.DoctorDTO;
-import app.entities.Speciality;
-
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-
 import static app.entities.Speciality.*;
 
 public class DoctorPopulator {
@@ -31,6 +23,6 @@ public class DoctorPopulator {
         );
 
         // Adding all doctors to the DAO list
-        doctors.forEach(doctorMockDAO::createDoctor);
+        doctors.forEach(doctorMockDAO::createDoctorWithAppointments);
     }
 }
